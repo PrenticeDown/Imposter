@@ -1,4 +1,15 @@
-
-"baseBuilder": {
-  "ownerAddress": "0x4E42Ce154615Bf69E9eaf6C5C3F2bA1dc776bb09"
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "baseBuilder": {
+    "ownerAddress": "0x4E42Ce154615Bf69E9eaf6C5C3F2bA1dc776bb09"
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Play Imposter",
+    "homeUrl": "https://playimposter.netlify.app"
+  }
 }
