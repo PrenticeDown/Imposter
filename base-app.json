@@ -1,0 +1,9 @@
+{
+  "name": "Play Imposter",
+  "short_description": "A party social deduction game on Base.",
+  "developer": "Prentice Down",
+  "website_url": "https://playimposter.netlify.app",
+  "app_icon_url": "https://playimposter.netlify.app/icon.png",
+  "app_tags": ["games", "party"],
+  "contract_addresses": []
+}
