@@ -12,11 +12,15 @@ interface RoleRevealScreenProps {
 
 export function RoleRevealScreen({ gameState, onPlayAgain }: RoleRevealScreenProps) {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
-  const [viewedPlayers, setViewedPlayers] = useState<Set<string>>(new Set());
+  const [viewCounts, setViewCounts] = useState<Map<string, number>>(new Map());
 
   const handlePlayerClick = (player: Player) => {
     setSelectedPlayer(player);
-    setViewedPlayers(prev => new Set(Array.from(prev).concat(player.name)));
+    setViewCounts(prev => {
+      const newMap = new Map(prev);
+      newMap.set(player.name, (newMap.get(player.name) || 0) + 1);
+      return newMap;
+    });
   };
 
   const handleCloseModal = () => {
@@ -35,7 +39,8 @@ export function RoleRevealScreen({ gameState, onPlayAgain }: RoleRevealScreenPro
         <CardContent className="space-y-4">
           <div className="space-y-2">
             {gameState.players.map((player, index) => {
-              const hasViewed = viewedPlayers.has(player.name);
+              const viewCount = viewCounts.get(player.name) || 0;
+              const hasViewed = viewCount > 0;
               return (
                 <Button
                   key={index}
@@ -48,7 +53,14 @@ export function RoleRevealScreen({ gameState, onPlayAgain }: RoleRevealScreenPro
                 >
                   <span>{player.name}</span>
                   {hasViewed && (
-                    <CheckCircle className="w-5 h-5 text-primary" data-testid={`icon-viewed-${index}`} />
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary" data-testid={`icon-viewed-${index}`} />
+                      {viewCount > 1 && (
+                        <span className="text-sm font-semibold text-primary" data-testid={`text-view-count-${index}`}>
+                          {viewCount}
+                        </span>
+                      )}
+                    </div>
                   )}
                 </Button>
               );
