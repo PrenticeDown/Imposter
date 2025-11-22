@@ -9,6 +9,7 @@
     "iconUrl": "https://playimposter.netlify.app/icon.png",
     "splashImageUrl": "https://playimposter.netlify.app/icon.png",
     "splashBackgroundColor": "#020617",
+    "webhookUrl": null,
     "subtitle": "Party social deduction game",
     "description": "Play Imposter is a fast party game you can run with any group. Everyone gets a secret word except the imposter, who has to fake it while the others try to expose them.",
     "screenshotUrls": ["https://playimposter.netlify.app/icon.png"],
