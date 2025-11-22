@@ -1,0 +1,125 @@
+You are editing my mini-app “Play Imposter” which is hosted at https://playimposter.netlify.app
+.
+Please make the following changes exactly as described.
+
+1. Create the Farcaster miniapp manifest
+
+In the project root, create a folder named:
+
+.well-known
+
+(Use that exact name, including the dot at the start.)
+
+Inside that folder, create a file named:
+
+farcaster.json
+
+Put the following EXACT JSON in farcaster.json:
+
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "baseBuilder": {
+    "ownerAddress": "0xYOUR_BASE_ACCOUNT_ADDRESS"
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Play Imposter",
+    "homeUrl": "https://playimposter.netlify.app",
+    "iconUrl": "https://playimposter.netlify.app/icon.png",
+    "splashImageUrl": "https://playimposter.netlify.app/icon.png",
+    "splashBackgroundColor": "#020617",
+    "webhookUrl": "",
+    "subtitle": "Party social deduction game",
+    "description": "Play Imposter is a fast party game you can run with any group. Everyone gets a secret word except the imposter, who has to fake it while the others try to expose them.",
+    "screenshotUrls": [
+      "https://playimposter.netlify.app/icon.png"
+    ],
+    "primaryCategory": "games",
+    "tags": ["social", "party", "game", "imposter", "friends"],
+    "heroImageUrl": "https://playimposter.netlify.app/icon.png",
+    "tagline": "Figure out who’s faking it.",
+    "ogTitle": "Play Imposter",
+    "ogDescription": "A quick, high-tension social deduction game you can launch inside Base.",
+    "ogImageUrl": "https://playimposter.netlify.app/icon.png",
+    "noindex": false
+  }
+}
+
+
+Do not change the JSON formatting.
+Leave header, payload, and signature as empty strings for now.
+Leave 0xYOUR_BASE_ACCOUNT_ADDRESS as-is for now (the human will update that value later once they confirm which address to use).
+
+2. Add the fc:miniapp meta tag to the HTML <head>
+
+Find my main HTML file (most likely index.html in the root or in a public-style folder).
+
+Inside the <head> element of that HTML file, add the following <meta> tag if it does not already exist:
+
+<meta
+  name="fc:miniapp"
+  content='{
+    "version":"next",
+    "imageUrl":"https://playimposter.netlify.app/icon.png",
+    "button":{
+      "title":"Play Now",
+      "action":{
+        "type":"launch_miniapp",
+        "name":"Play Imposter",
+        "url":"https://playimposter.netlify.app"
+      }
+    }
+  }'
+/>
+
+
+Important:
+
+Ensure this <meta> is inside <head>, not inside <body>.
+
+If there is already an fc:miniapp meta tag, replace its entire content value with the JSON above (keeping the same structure as shown).
+
+3. Add the miniapp SDK and call sdk.actions.ready()
+
+In the same main HTML file, before the closing </body> tag, insert the following <script> block once:
+
+<script type="module">
+  import { sdk } from 'https://esm.sh/@farcaster/miniapp-sdk';
+
+  window.addEventListener('load', async () => {
+    try {
+      // Call this when the UI is ready for the user
+      await sdk.actions.ready();
+    } catch (e) {
+      console.error('MiniApp sdk.actions.ready() failed', e);
+    }
+  });
+</script>
+
+
+If there is already a script that imports @farcaster/miniapp-sdk or calls sdk.actions.ready(), do NOT create a duplicate.
+Instead, ensure there is a single sdk.actions.ready() call that runs after the UI has loaded.
+
+Do not modify any other existing scripts or logic.
+
+4. Do not break anything else
+
+Do not rename any files.
+
+Do not move any existing files.
+
+Do not change other meta tags, scripts, or markup besides what I asked.
+
+After changes, ensure all files still parse correctly (valid HTML, valid JSON).
+
+When you are done, summarize exactly what files you created or changed and show the final contents of:
+
+.well-known/farcaster.json
+
+The <head> section of the main HTML file
+
+The new <script type="module"> block you added before </body>

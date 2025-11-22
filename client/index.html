@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <meta name="description" content="Imposter party game - A fun social deduction game where players secretly check their roles and try to find the imposters">
+    <meta
+      name="fc:miniapp"
+      content='{
+    "version":"next",
+    "imageUrl":"https://playimposter.netlify.app/icon.png",
+    "button":{
+      "title":"Play Now",
+      "action":{
+        "type":"launch_miniapp",
+        "name":"Play Imposter",
+        "url":"https://playimposter.netlify.app"
+      }
+    }
+  }'
+    />
     <title>Imposter - Party Game</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="manifest" href="/base-app.json" />
@@ -14,5 +29,6 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/farcaster-sdk.js"></script>
   </body>
 </html>
