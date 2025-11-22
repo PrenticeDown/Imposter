@@ -1,29 +1,36 @@
 import { useState } from "react";
-import { SetupScreen } from "@/components/setup-screen";
-import { NameEntryScreen } from "@/components/name-entry-screen";
+import { PlayerSetupScreen } from "@/components/player-setup-screen";
+import { ThemeConfigScreen } from "@/components/theme-config-screen";
 import { RoleRevealScreen } from "@/components/role-reveal-screen";
-import { type GameConfig, type GameState, WORD_LIST, type Player } from "@shared/schema";
+import { type GameConfig, type GameState, THEMES, type ThemeId, type Player } from "@shared/schema";
 
-type GamePhase = "setup" | "names" | "reveal";
+type GamePhase = "players" | "config" | "reveal";
 
 export default function Home() {
-  const [phase, setPhase] = useState<GamePhase>("setup");
+  const [phase, setPhase] = useState<GamePhase>("players");
+  const [playerNames, setPlayerNames] = useState<string[]>([]);
   const [gameConfig, setGameConfig] = useState<GameConfig | null>(null);
   const [gameState, setGameState] = useState<GameState | null>(null);
 
-  const handleSetupComplete = (config: GameConfig) => {
-    setGameConfig(config);
-    setPhase("names");
+  const handlePlayersComplete = (names: string[]) => {
+    setPlayerNames(names);
+    setPhase("config");
   };
 
-  const handleNamesComplete = (playerNames: string[]) => {
-    if (!gameConfig) return;
+  const handleConfigComplete = (theme: ThemeId, imposterCount: number, useHintWord: boolean) => {
+    const config: GameConfig = {
+      playerCount: playerNames.length,
+      theme,
+      imposterCount,
+      useHintWord
+    };
 
-    const crewWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+    const themeWords = THEMES[theme].words;
+    const crewWord = themeWords[Math.floor(Math.random() * themeWords.length)];
     
     let imposterWord: string | null = null;
-    if (gameConfig.useHintWord) {
-      const availableWords = WORD_LIST.filter(w => w !== crewWord);
+    if (useHintWord) {
+      const availableWords = themeWords.filter(w => w !== crewWord);
       imposterWord = availableWords[Math.floor(Math.random() * availableWords.length)];
     }
 
@@ -33,18 +40,17 @@ export default function Home() {
       [shuffledIndices[i], shuffledIndices[j]] = [shuffledIndices[j], shuffledIndices[i]];
     }
 
-    const imposterIndices = shuffledIndices.slice(0, gameConfig.imposterCount);
+    const imposterIndices = shuffledIndices.slice(0, imposterCount);
 
     const players: Player[] = playerNames.map((name, index) => ({
       name,
       role: imposterIndices.includes(index) ? "imposter" : "crewmate",
-      word: imposterIndices.includes(index) 
-        ? imposterWord 
-        : crewWord
+      word: imposterIndices.includes(index) ? imposterWord : crewWord
     }));
 
+    setGameConfig(config);
     setGameState({
-      config: gameConfig,
+      config,
       players,
       crewWord,
       imposterWord
@@ -52,29 +58,35 @@ export default function Home() {
     setPhase("reveal");
   };
 
-  const handleNewGame = () => {
-    setPhase("setup");
-    setGameConfig(null);
+  const handlePlayAgain = () => {
+    setPhase("config");
     setGameState(null);
+  };
+
+  const handleBackToPlayers = () => {
+    setPhase("players");
   };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
-        {phase === "setup" && (
-          <SetupScreen onComplete={handleSetupComplete} />
+        {phase === "players" && (
+          <PlayerSetupScreen 
+            initialNames={playerNames}
+            onComplete={handlePlayersComplete} 
+          />
         )}
-        {phase === "names" && gameConfig && (
-          <NameEntryScreen 
-            playerCount={gameConfig.playerCount} 
-            onComplete={handleNamesComplete}
-            onBack={() => setPhase("setup")}
+        {phase === "config" && (
+          <ThemeConfigScreen 
+            playerCount={playerNames.length}
+            onComplete={handleConfigComplete}
+            onBack={handleBackToPlayers}
           />
         )}
         {phase === "reveal" && gameState && (
           <RoleRevealScreen 
             gameState={gameState}
-            onNewGame={handleNewGame}
+            onPlayAgain={handlePlayAgain}
           />
         )}
       </div>

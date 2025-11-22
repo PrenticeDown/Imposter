@@ -9,7 +9,7 @@ export const THEMES = {
       "Cheers", "Toast", "Cocktail", "Buffet", "Cake",
       "Decorations", "Invitations", "Games", "Photo Booth", "Fireworks",
       "Streamers", "DJ Booth", "Dance Floor", "Bar", "Venue",
-      "Host", "Guest", "RSVP", "Gift", "Celebration",
+      "Host", "Guest", "RSVP", "Gift", "Gala",
       "Festival", "Carnival", "Parade", "Concert", "Nightclub",
       "Rave", "House Party", "BBQ", "Picnic", "Beach Party"
     ]
@@ -33,12 +33,11 @@ export const THEMES = {
       "Martini", "Whiskey", "Vodka", "Tequila", "Rum",
       "Casino", "Poker", "Blackjack", "Roulette", "Slots",
       "Nightlife", "Club", "Bar", "Lounge", "Speakeasy",
-      "Adult Film", "Burlesque", "Cabaret", "Strip Club", "Lingerie",
-      "Romance", "Passion", "Desire", "Seduction", "Flirtation",
+      "Burlesque", "Cabaret", "Strip Club", "Lingerie", "Flirtation",
+      "Romance", "Passion", "Desire", "Seduction", "Temptation",
       "Date Night", "Honeymoon", "Bachelorette", "Bachelor", "Vegas",
       "Sin City", "Wild Night", "After Hours", "VIP", "Bottle Service",
       "Hookup", "Fling", "Affairs", "Scandal", "Secrets",
-      "Temptation", "Forbidden", "Risque", "Provocative", "Sultry"
     ]
   },
   sports: {
@@ -51,8 +50,7 @@ export const THEMES = {
       "Track", "Marathon", "Sprint", "Relay", "Hurdles",
       "Championship", "Tournament", "Playoffs", "Finals", "Trophy",
       "Medal", "Stadium", "Arena", "Court", "Field",
-      "Coach", "Team", "Captain", "Referee", "Fans",
-      "Training", "Practice", "Workout", "Fitness", "Competition"
+      "Coach", "Team", "Captain", "Referee", "Fans"
     ]
   },
   food: {
@@ -65,8 +63,7 @@ export const THEMES = {
       "Breakfast", "Brunch", "Lunch", "Dinner", "Snack",
       "Restaurant", "Chef", "Kitchen", "Recipe", "Cooking",
       "Baking", "Grilling", "Roasting", "Frying", "Boiling",
-      "Appetizer", "Entree", "Main Course", "Side Dish", "Beverage",
-      "Wine", "Coffee", "Tea", "Juice", "Smoothie"
+      "Appetizer", "Entree", "Main Course", "Side Dish", "Beverage"
     ]
   }
 } as const;
