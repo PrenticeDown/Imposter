@@ -18,7 +18,7 @@ Preferred communication style: Simple, everyday language.
 
 **Styling**: Tailwind CSS with custom theming via CSS variables. The design system uses the "New York" Shadcn style variant with custom spacing (Roboto font, specific border radius values, and Material Design-inspired elevation system).
 
-**State Management**: React useState hooks for local component state. The application follows a linear three-phase flow (setup → names → reveal) managed in the main Home component.
+**State Management**: React useState hooks for local component state. The application follows a three-phase flow (player setup → theme/imposter config → role reveal) with back navigation support. State is managed in the main Home component with proper persistence between screens.
 
 **Routing**: Wouter for lightweight client-side routing, though the current implementation is a single-page app.
 
@@ -40,7 +40,7 @@ Preferred communication style: Simple, everyday language.
 
 **Random Assignment Algorithm**: Fisher-Yates shuffle to randomly distribute imposter roles among players, ensuring fair and unpredictable role assignment.
 
-**Word Selection**: Random selection from a hardcoded word list (50 thematic words across categories like locations, foods, instruments, sports, etc.). Imposters receive either no word or a different "hint word" based on configuration.
+**Word Selection**: Users select from 12 themed word lists (Party, Celebrities, R18, Movies, Animals, Food, Sports, Locations, Jobs, Gaming, Technology, Romance) via a dropdown selector. Each theme contains ~50 main/hint word pairs. The game randomly selects one word pair, giving crewmates the main word (e.g., "Titanic") and imposters the hint word (e.g., "Iceberg") when enabled, or null when disabled.
 
 **Privacy Design**: Role reveals use a timed modal (4-second countdown) that auto-closes to prevent shoulder surfing when players pass the device.
 
