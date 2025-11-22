@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { THEMES, type ThemeId } from "@shared/schema";
 import { ArrowLeft, Play, Shield } from "lucide-react";
@@ -36,7 +37,10 @@ export function ThemeConfigScreen({ playerCount, onComplete, onBack }: ThemeConf
     onComplete(selectedTheme, imposterCount, useHintWord);
   };
 
-  const themes: ThemeId[] = ["party", "celebrities", "r18", "sports", "food"];
+  const themeOptions = Object.entries(THEMES).map(([id, theme]) => ({
+    id: id as ThemeId,
+    name: theme.name
+  }));
 
   return (
     <Card className="border-card-border">
@@ -62,22 +66,24 @@ export function ThemeConfigScreen({ playerCount, onComplete, onBack }: ThemeConf
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
-            <div className="space-y-3">
+            <div className="space-y-2">
               <Label className="text-base font-medium">Select Theme</Label>
-              <div className="grid grid-cols-2 gap-2">
-                {themes.map((themeId) => (
-                  <Button
-                    key={themeId}
-                    type="button"
-                    variant={selectedTheme === themeId ? "default" : "outline"}
-                    className="h-14 text-base font-medium"
-                    onClick={() => setSelectedTheme(themeId)}
-                    data-testid={`button-theme-${themeId}`}
-                  >
-                    {THEMES[themeId].name}
-                  </Button>
-                ))}
-              </div>
+              <Select value={selectedTheme} onValueChange={(value) => setSelectedTheme(value as ThemeId)}>
+                <SelectTrigger className="h-12 text-base" data-testid="select-theme">
+                  <SelectValue placeholder="Choose a theme" />
+                </SelectTrigger>
+                <SelectContent>
+                  {themeOptions.map((theme) => (
+                    <SelectItem 
+                      key={theme.id} 
+                      value={theme.id}
+                      data-testid={`option-theme-${theme.id}`}
+                    >
+                      {theme.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-2">

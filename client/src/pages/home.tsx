@@ -26,13 +26,9 @@ export default function Home() {
     };
 
     const themeWords = THEMES[theme].words;
-    const crewWord = themeWords[Math.floor(Math.random() * themeWords.length)];
-    
-    let imposterWord: string | null = null;
-    if (useHintWord) {
-      const availableWords = themeWords.filter(w => w !== crewWord);
-      imposterWord = availableWords[Math.floor(Math.random() * availableWords.length)];
-    }
+    const randomWordPair = themeWords[Math.floor(Math.random() * themeWords.length)];
+    const crewWord = randomWordPair.main;
+    const imposterWord = useHintWord ? randomWordPair.hint : null;
 
     const shuffledIndices = Array.from({ length: playerNames.length }, (_, i) => i);
     for (let i = shuffledIndices.length - 1; i > 0; i--) {
