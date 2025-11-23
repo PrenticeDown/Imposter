@@ -3,7 +3,7 @@
     "header": "eyJmaWQiOjE0NTUwNzEsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgwMmI0OEE4OEJiYjQwZDg2MmVjNTNhNTI2RTdhM0MxM0VCMDJERWE5In0",
     "payload": "eyJkb21haW4iOiJwbGF5aW1wb3N0ZXIubmV0bGlmeS5hcHAifQ",
     "signature": "OK9sDIvlvYILNKVWzzPhVdp+rPmDG9Ilvxh2WoTBjTFqICPpQyNx/fc0xohqsZXyMLffQwAEtdiWjL1zix9F2Rs="
-  }
+  },
   "baseBuilder": {
     "allowedAddresses": ["0x4E42Ce154615Bf69E9eaf6C5C3F2bA1dc776bb09"]
   },
