@@ -10,14 +10,24 @@ import { ArrowLeft, Play, Shield } from "lucide-react";
 
 interface ThemeConfigScreenProps {
   playerCount: number;
+  initialTheme?: ThemeId;
+  initialImposterCount?: number;
+  initialUseHintWord?: boolean;
   onComplete: (theme: ThemeId, imposterCount: number, useHintWord: boolean) => void;
   onBack: () => void;
 }
 
-export function ThemeConfigScreen({ playerCount, onComplete, onBack }: ThemeConfigScreenProps) {
-  const [selectedTheme, setSelectedTheme] = useState<ThemeId>("party");
-  const [imposterCount, setImposterCount] = useState<number>(1);
-  const [useHintWord, setUseHintWord] = useState<boolean>(false);
+export function ThemeConfigScreen({ 
+  playerCount, 
+  initialTheme = "party",
+  initialImposterCount = 1,
+  initialUseHintWord = false,
+  onComplete, 
+  onBack 
+}: ThemeConfigScreenProps) {
+  const [selectedTheme, setSelectedTheme] = useState<ThemeId>(initialTheme);
+  const [imposterCount, setImposterCount] = useState<number>(initialImposterCount);
+  const [useHintWord, setUseHintWord] = useState<boolean>(initialUseHintWord);
   const [error, setError] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {

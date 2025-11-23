@@ -11,6 +11,9 @@ export default function Home() {
   const [playerNames, setPlayerNames] = useState<string[]>([]);
   const [gameConfig, setGameConfig] = useState<GameConfig | null>(null);
   const [gameState, setGameState] = useState<GameState | null>(null);
+  const [lastTheme, setLastTheme] = useState<ThemeId>("party");
+  const [lastImposterCount, setLastImposterCount] = useState<number>(1);
+  const [lastUseHintWord, setLastUseHintWord] = useState<boolean>(false);
 
   const handlePlayersComplete = (names: string[]) => {
     setPlayerNames(names);
@@ -18,6 +21,10 @@ export default function Home() {
   };
 
   const handleConfigComplete = (theme: ThemeId, imposterCount: number, useHintWord: boolean) => {
+    setLastTheme(theme);
+    setLastImposterCount(imposterCount);
+    setLastUseHintWord(useHintWord);
+    
     const config: GameConfig = {
       playerCount: playerNames.length,
       theme,
@@ -75,6 +82,9 @@ export default function Home() {
         {phase === "config" && (
           <ThemeConfigScreen 
             playerCount={playerNames.length}
+            initialTheme={lastTheme}
+            initialImposterCount={lastImposterCount}
+            initialUseHintWord={lastUseHintWord}
             onComplete={handleConfigComplete}
             onBack={handleBackToPlayers}
           />

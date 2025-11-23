@@ -81,7 +81,7 @@ export function PlayerSetupScreen({ initialNames, onComplete }: PlayerSetupScree
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-2">
+          <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-2 py-1">
             {names.map((name, index) => (
               <div key={index} className="flex gap-2">
                 <Input
