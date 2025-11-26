@@ -20,7 +20,7 @@ export function LandingScreen({ onPlayNow, onHowToPlay }: LandingScreenProps) {
           Imposter
         </h1>
         <p className="text-muted-foreground text-center text-lg max-w-xs">
-          The party game where one player fakes it
+          Some players don't know the word. Can you spot them?
         </p>
       </div>
 
