@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { LandingScreen } from "@/components/landing-screen";
+import { HowToPlayScreen } from "@/components/how-to-play-screen";
 import { PlayerSetupScreen } from "@/components/player-setup-screen";
 import { ThemeConfigScreen } from "@/components/theme-config-screen";
 import { RoleRevealScreen } from "@/components/role-reveal-screen";
 import { type GameConfig, type GameState, THEMES, type ThemeId, type Player } from "@shared/schema";
 
-type GamePhase = "players" | "config" | "reveal";
+type GamePhase = "landing" | "howtoplay" | "players" | "config" | "reveal";
 
 export default function Home() {
-  const [phase, setPhase] = useState<GamePhase>("players");
+  const [phase, setPhase] = useState<GamePhase>("landing");
   const [playerNames, setPlayerNames] = useState<string[]>([]);
   const [gameConfig, setGameConfig] = useState<GameConfig | null>(null);
   const [gameState, setGameState] = useState<GameState | null>(null);
@@ -70,9 +72,33 @@ export default function Home() {
     setPhase("players");
   };
 
+  const handleBackToLanding = () => {
+    setPhase("landing");
+  };
+
+  const handlePlayNow = () => {
+    setPhase("players");
+  };
+
+  const handleHowToPlay = () => {
+    setPhase("howtoplay");
+  };
+
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
+        {phase === "landing" && (
+          <LandingScreen
+            onPlayNow={handlePlayNow}
+            onHowToPlay={handleHowToPlay}
+          />
+        )}
+        {phase === "howtoplay" && (
+          <HowToPlayScreen
+            onBack={handleBackToLanding}
+            onPlayNow={handlePlayNow}
+          />
+        )}
         {phase === "players" && (
           <PlayerSetupScreen 
             initialNames={playerNames}
